@@ -14,26 +14,31 @@ else{
 }
  return choice;
 }
-// console.log('Computer choice :'+getComputerChoice());
 
-// human logic rock and paper and scissors
+
+// logic rock and paper and scissors
+    let rock = document.getElementById('rock').value;
+    console.log(rock)
+
 function getHumanChoice(){
     console.log("Plear enter choice 1:Rock, 2:Paper, 3:Scissors");
-    let humanChoice = parseInt(prompt("Enter you choice: "));
+    let rock = document.getElementById('rock').value;
+
+    let paper = document.getElementById('paper').value;
+    
+    let scissors = document.getElementById('scissors').value;
+    
     let choice = ' ';
-if(isNaN(humanChoice) || humanChoice < 1 || humanChoice > 3){
-    console.log("Invalid choice, please enter a valid choice");
-    humanChoice = parseInt(prompt("Enter you choice: "));
-}else{
-    if(humanChoice === 1){
+
+    if(rock.value == 1){
         choice ='Rock';
 
-    }else if(humanChoice === 2){
+    }else if(paper.value == 2){
         choice = 'Paper';
-    }else{
+    }else if(scissors == 3){
         choice ='Scissors';
     }
-}
+
     return choice;
 }
 // document.getElementById('demo').innerHTML =getHumanChoice();
@@ -61,6 +66,7 @@ function playRound(humanChoice, computerChoice){
         computerScore++;
     }else if((humanChoice ==='Rock' && computerChoice === 'Paper')){
         results = "You loose! Paper beats Rock";
+
         computerScore++;
     }else if((humanChoice === 'Paper' && computerChoice === 'Scissors')){
         results ="You loose! Scissors beat Paper";
@@ -69,20 +75,29 @@ function playRound(humanChoice, computerChoice){
     return results;
 
 }
+
 //test if it works first
-//document.getElementById('demo').innerHTML = playRound(getHumanChoice(),getComputerChoice());
-//create the playGame function 
-
-function playGame(){
- let result = '';
-
-    for(let i=0; i <= 5 ; i++){
-         let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-    playRound(humanChoice,computerChoice);
-    result += '<br>Round :'+i+'<br>Human score:'+humanScore +'<br>'+' Computer score:'+computerScore;
-    }
-    return result
+//displays the results in each button press
+document.getElementById('rock').onclick = function(){
+    document.getElementById('display').innerHTML = playRound('Rock',getComputerChoice()) + '<br> Human Score: '+humanScore+'<br> Computer Score: '+computerScore;
+     checkWinner();
 }
-//call the function
-document.getElementById('demo').innerHTML = playGame();
+document.getElementById('paper').onclick = function(){
+    document.getElementById('display').innerHTML = playRound('Paper',getComputerChoice())+ '<br> Human Score: '+humanScore+'<br> Computer Score: '+computerScore;
+     checkWinner();
+}
+document.getElementById('scissors').onclick = function(){
+    document.getElementById('display').innerHTML = playRound('Scissors',getComputerChoice())+ '<br> Human Score: '+humanScore+'<br> Computer Score: '+computerScore;
+    checkWinner();
+}
+
+//display the winner after 5 points
+function checkWinner(){
+if(humanScore === 5){
+    document.getElementById('display').innerHTML = "Congratulations! You are the overall winner!";
+}else if(computerScore === 5){
+    document.getElementById('display').innerHTML = "Computer is the overall winner! Better luck next time!";
+}
+}
+
+;
